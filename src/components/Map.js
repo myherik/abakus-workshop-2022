@@ -66,7 +66,7 @@ const MapComponent = () => {
 
         // Det første vi må gjøre er å sørge for at Widgeten har tilgang til MapViewet
         // Dette kan gjøres ved å legge den til i contexten vår
-        context.mapView.set(mapView);
+        // Resten av feilene må løses i RouteWidget fila
       });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
