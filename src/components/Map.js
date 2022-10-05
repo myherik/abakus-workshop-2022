@@ -4,6 +4,7 @@ import esriConfig from '@arcgis/core/config.js';
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
 import Locate from '@arcgis/core/widgets/Locate';
+import Graphic from "@arcgis/core/Graphic";
 
 import { AppContext } from "../state/context";
 import { createOSMFeatureLayer, queryOSMData } from "../utils/featureUtils";
@@ -81,9 +82,23 @@ const MapComponent = () => {
         // Mer om dette finnes på siden:
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#on
         // Det er mulig å lagre resultatet ra widgeten i contexten med context.point.set()
+        locateWidget.on("locate", function (locateEvent) {
+          if (locateEvent.position.coords) {
+            context.point.set(
+              {
+                type: "point",
+                latitude: locateEvent.position.coords.latitude,
+                longitude: locateEvent.position.coords.longitude
+              }
+            )
+          }
+        });
 
         // For å kunne klikke i kartet trenger vi en lytter på MapViewet
         // Dette gjøres ganske likt som for locate widgeten, og mer info er på API siden for MapView
+        mapView.on("click", (event) => {
+          context.point.set(event.mapPoint);
+        });
 
         // For klikk i kart er det og ønsket å legge til et punkt som viser hvor brukeren har klikket
         // For å gjøre dette trenger vi å ta i bruk noe for symbologi, f. eks SimpleMarkerSymbol
@@ -95,6 +110,30 @@ const MapComponent = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (context.mapView.value) {
+      const mapView = context.mapView.value;
+
+      const oldPoint = mapView.graphics.items.filter((item) => { return item.geometry.type === "point" })[0];
+      mapView.graphics.remove(oldPoint);
+
+      const simpleMarkerSymbol = {
+        type: "simple-marker",
+        color: '#1976d2',  // Blue
+        outline: {
+          color: [255, 255, 255], // White
+          width: 1
+        }
+      };
+
+      const pointGraphic = new Graphic({
+        geometry: context.point.value,
+        symbol: simpleMarkerSymbol
+      });
+
+      mapView.graphics.add(pointGraphic);
+    }
+  }, [context.point.value, context.mapView.value]);
 
   return <div className="mapDiv" ref={mapDiv}></div>;
 }
