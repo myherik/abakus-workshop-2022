@@ -31,7 +31,6 @@ const MapComponent = () => {
           // xmin: 10.227928161621094,
           // ymax: 63.453731595863324,
           // xmax: 10.560264587402344
-      // Eller som en bbox:
       new MapView({
         // MapView trenger minimum feltene:
         // map
