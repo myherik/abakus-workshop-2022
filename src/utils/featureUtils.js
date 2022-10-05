@@ -2,6 +2,8 @@ import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import Point from "@arcgis/core/geometry/Point";
 
 export const queryOSMData = async (bbox) => {
+  // bbox for Trondheim
+  // 63.40182257265643,10.227928161621094,63.453731595863324,10.560264587402344
   const url = "https://overpass-api.de/api/interpreter"
   const body = `
   [out:json][timeout:25];
