@@ -23,7 +23,7 @@ export const queryOSMData = async (bbox) => {
   return response.json();
 };
 
-export const createOSMFeatureLayer = (OsmPoi) => {
+export const createOSMFeatureLayer = (OsmPoi, context) => {
   // Opprett geografisk punkt for hvert POI
   const poiFeature = OsmPoi?.elements.map((poi) => {
     let poiInfo = "";
@@ -73,5 +73,6 @@ export const createOSMFeatureLayer = (OsmPoi) => {
       }]
     }
   });
+  context.featureLayer.set(featureLayer);
   return featureLayer;
 };
