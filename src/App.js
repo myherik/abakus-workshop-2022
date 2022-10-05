@@ -28,7 +28,7 @@ function App() {
     <AppContext.Provider value={store}>
       <div style={{ height: "100%", width: "100%" }}>
         <MapComponent />
-        {/* <RouteWidget /> */}
+        <RouteWidget />
       </div>
     </AppContext.Provider>
   );

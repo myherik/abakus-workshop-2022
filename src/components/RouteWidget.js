@@ -25,7 +25,8 @@ const RouteWidget = () => {
       // Vi trenger å fjerne gamle ruter før vi legger til nye
       // Hint: grafikken legges til MapView 
       const mapView = context.mapView.value;
-
+      const oldLine = mapView.graphics.items.filter((item) => { return item.geometry.type === "polyline" })[0];
+      mapView.graphics.remove(oldLine);
       const route = result.data.routeResults[0].route;
 
       route.attributes.name = "route";
@@ -45,7 +46,9 @@ const RouteWidget = () => {
       Hvor mange skritt vil du gå idag?
       <div style={{ margin: "20px" }}>
         <TextField id="select" label="Skritt" value={radius} select onChange={(e) => setRadius(e.target.value)}>
-          {/* Vi ønsker å gi brukeren noen valg over hvor mange skritt som skal gås pr. rute */}
+          <MenuItem value={0.5}>3000</MenuItem>
+          <MenuItem value={0.7}>5000</MenuItem>
+          <MenuItem value={1.5}>10000</MenuItem>
         </TextField>
       </div>
       <Button variant="contained" color="primary" onClick={() => getRoute()}>
