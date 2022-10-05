@@ -2,14 +2,15 @@ import React, { useRef, useEffect, useContext } from "react";
 import { AppContext } from "../state/context";
 
 import MapView from "@arcgis/core/views/MapView";
-import WebMap from "@arcgis/core/WebMap";
+import Map from "@arcgis/core/Map";
 import Graphic from "@arcgis/core/Graphic";
 import esriConfig from '@arcgis/core/config.js';
 import Locate from '@arcgis/core/widgets/Locate';
 
 import "../App.css";
+import { createOSMFeatureLayer, queryOSMData } from "../utils/featureUtils";
 
-const Map = () => {
+const MapComponent = () => {
   const context = useContext(AppContext);
 
   // Required: Set this property to insure assets resolve correctly.
@@ -22,11 +23,12 @@ const Map = () => {
     if (context.mapView.value) {
       const mapView = context.mapView.value;
 
-      mapView.graphics.removeAll();
+      const oldPoint = mapView.graphics.items.filter((item) => { return item.geometry.type === "point" })[0];
+      mapView.graphics.remove(oldPoint);
 
       const simpleMarkerSymbol = {
         type: "simple-marker",
-        color: [226, 119, 40],  // Orange
+        color: '#1976d2',  // Blue
         outline: {
           color: [255, 255, 255], // White
           width: 1
@@ -46,17 +48,29 @@ const Map = () => {
   useEffect(() => {
     esriConfig.portalUrl = "https://geodata.maps.arcgis.com/";
     if (mapDiv.current) {
-      const map = new WebMap({
-        portalItem: { // autocasts as new PortalItem()
-          id: "ac31e298305f42258eccad33b2029616"  // ID of the WebScene on arcgis.com
-        }
+      const map = new Map({
+        basemap: 'gray-vector'
       });
 
       const mapView = new MapView({
         map: map,
         container: mapDiv.current,
+        extent: {
+          ymin: 63.40182257265643,
+          xmin: 10.227928161621094,
+          ymax: 63.453731595863324,
+          xmax: 10.560264587402344
+        }
       }).when((mapView) => {
         // Når kartet er initialisert:
+        // Hent data fra OpenStreetMap
+        queryOSMData(
+          "63.40182257265643,10.227928161621094,63.453731595863324,10.560264587402344"
+        ).then((result) => {
+          // Lag et kartlag med punkter fra osm spørringen
+          const featureLayer = createOSMFeatureLayer(result, context);
+          map.add(featureLayer);
+        });
 
         // Legge til click event
         mapView.on("click", (event) => {
@@ -68,7 +82,6 @@ const Map = () => {
           view: mapView,
           scale: 5000
         });
-
         mapView.ui.add(locateWidget, "top-left");
 
         // Når locate-widget lokaliserer, sett ruteberegnerens startpunkt
@@ -83,14 +96,13 @@ const Map = () => {
             )
           }
         });
-
         context.mapView.set(mapView);
       });
-
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div className="mapDiv" ref={mapDiv}></div>;
 }
 
-export default Map;
+export default MapComponent;

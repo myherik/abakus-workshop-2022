@@ -12,8 +12,6 @@ const RouteWidget = () => {
   const [radius, setRadius] = useState(1.5); // Radius rundt brukerens posisjon
   const isMobile = navigator.userAgent.match(/Mobile|Windows Phone|Lumia|Android|webOS|iPhone|iPod|Blackberry|PlayBook|BB10|Opera Mini|\bCrMo\/|Opera Mobi/i)
 
-  // const [hightlightPoint, setHighlightPoint] = useState(null);
-
   // Kalkuler ca antall skritt basert på rutens lengde
   const getSteps = (length) => {
     return Math.floor((length) * 1400);
@@ -23,13 +21,7 @@ const RouteWidget = () => {
   const getRoute = () => {
     const point = context.point.value;
 
-    getRandomRoute(point, radius).then((result) => {
-      // if (result.point1.attributes.POI !== null) {
-      //       setHighlightPoint(result.point1)
-      // } else if (result.point2.attributes.POI !== null) {
-      //       setHighlightPoint(result.point2);
-      // }
-
+    getRandomRoute(point, radius, context).then((result) => {
       const mapView = context.mapView.value;
 
       const oldLine = mapView.graphics.items.filter((item) => { return item.geometry.type === "polyline" })[0];
@@ -52,9 +44,6 @@ const RouteWidget = () => {
 
   return (
     <div className={isMobile ? "widgetContainerMobile" : "widgetContainer"}>
-      {/* {hightlightPoint && 
-                        <div>Fant et punkt!</div>
-                  }  */}
       Hvor mange skritt vil du gå idag?
       <div style={{ margin: "20px" }}>
         <TextField id="select" label="Skritt" value={radius} select onChange={(e) => setRadius(e.target.value)}>
