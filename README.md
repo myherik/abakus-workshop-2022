@@ -1,6 +1,7 @@
 ## Getting Started
 This project was bootstrapped with Create React App.
 
+### Quickstart
 ##### `git clone https://github.com/hanss-geodata/abakus-workshop-2022.git`
 ##### `npm install`
 ##### `npm start`
@@ -12,6 +13,7 @@ The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ## Oppgave 1
+Start på branch `step-1-display-features` (`git switch step-1-display-features`) eller branch ut fra denne.
 ### Sette opp Map, MapView og FeatureLayer
 Målet med denne oppgaven er å vise data i et kart. For å oppnå dette må vi sette opp et kart (Map) element, og en visning av dette kartet (MapView).
 
@@ -20,17 +22,20 @@ Vi har lagt inn de nødvendige komponentene i koden, men konstruktørene mangler
 I tillegg til kartet og visningen må det legges til et data lag. Vi har noen hjelpefunksjoner som hjelper med å hente data, og opprette dette laget, men det må implementeres og legges til i kartet.
 
 ## Oppgave 2
+Kan fortsette på egen branch, eller starte på branch `step-2-add-widgets`
 ### Legge til widgets
 Esri har mange widgets som er enkle å legge til i kartet, og i denne delen skal vi legge til en lokasjons widget. Hvordan dette gjøres er godt dokumentert i API dokumentasjonen. En god idé er å sette zoom nivået med scale attributten, f. eks scale 5000.
 
 Vi har og lagd en egen widged som kan legges til. Dette er en widget som finner en rute mellom minst to punkt i kartet, og forsøker å få denne ruten til å matche et mål om antall skritt. Widgeten ligger i components/RouteWidget, men den er ikke helt ferdig enda. For å legge til denne må det gjøres noen endringer i Map.js, App.js, og det må rettes noen feil i RouteWidget.js fila.
 
 ## Oppgave 3
+Kan fortsette på egen branch eller starte på branch `step-3-route-start`
 ### Utvide widget
 I siste oppgave ønsker vi å utvide widgeten slik at brukeren kan velge selv hvor ruten skal starte. For å oppnå dette kan det implementeres med lokasjonswidgeten, eller med klikk i kartet. Implementasjonen er ganske lik for begge alternativene, man lager en lytter på et event, og setter et koordinat inn i contexten.
 
 Det burde og legges til en grafikk i kartet som viser hvor startsstedet er, som tilsvarer brukerens klikk. Esri har et API for grafikk, og man kan bruke SimpleMarkerSymbol, eller CIMSymbol for grafikken. SimpleMarker er enklest å ta i bruk, mens CIM gir flere muligheter for styling.
 
+En ferdig løsning finnes på branch `complete`
 ## Videre arbeid
 Det er fremdeles en del som kan gjøres med denne applikasjonen. Slik som det er nå hentes alle punktene basert på hardkodet coordinater, Et mulig sted å begynne med forbedringer er å ta koordinatene basert på kartet. Det kan og jobbes mer med styling, eller man kan prøve å legge til flere nyttige Esri widgets.
 
