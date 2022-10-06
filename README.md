@@ -35,7 +35,7 @@ I siste oppgave ønsker vi å utvide widgeten slik at brukeren kan velge selv hv
 
 Det burde og legges til en grafikk i kartet som viser hvor startsstedet er, som tilsvarer brukerens klikk. Esri har et API for grafikk, og man kan bruke SimpleMarkerSymbol, eller CIMSymbol for grafikken. SimpleMarker er enklest å ta i bruk, mens CIM gir flere muligheter for styling.
 
-En ferdig løsning finnes på branch `complete`
+En ferdig løsning finnes på branch `complete` og kan testet på https://hanss-geodata.github.io/abakus-workshop-2022/
 ## Videre arbeid
 Det er fremdeles en del som kan gjøres med denne applikasjonen. Slik som det er nå hentes alle punktene basert på hardkodet coordinater, Et mulig sted å begynne med forbedringer er å ta koordinatene basert på kartet. Det kan og jobbes mer med styling, eller man kan prøve å legge til flere nyttige Esri widgets.
 
