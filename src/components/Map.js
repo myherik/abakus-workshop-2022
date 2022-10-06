@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useContext } from "react";
 
-import esriConfig from '@arcgis/core/config.js';
+import esriConfig from "@arcgis/core/config.js";
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
-import Locate from '@arcgis/core/widgets/Locate';
+import Locate from "@arcgis/core/widgets/Locate";
 import Graphic from "@arcgis/core/Graphic";
 
 import { AppContext } from "../state/context";
@@ -13,7 +13,7 @@ import "../App.css";
 const MapComponent = () => {
   const context = useContext(AppContext);
   // Required: Set this property to insure assets resolve correctly.
-  esriConfig.assetsPath = './assets';
+  esriConfig.assetsPath = "./assets";
   const mapDiv = useRef(null);
 
   // Opprett kartet
@@ -24,7 +24,7 @@ const MapComponent = () => {
       // En liste med valg inner vi i API dokumentasjonen:
       // https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap
       const map = new Map({
-        basemap: 'gray-vector'
+        basemap: "topo-vector",
       });
 
       // For å kunne vise kartet må dette legges til i et MapView
@@ -37,8 +37,8 @@ const MapComponent = () => {
           ymin: 63.40182257265643,
           xmin: 10.227928161621094,
           ymax: 63.453731595863324,
-          xmax: 10.560264587402344
-        }
+          xmax: 10.560264587402344,
+        },
       }).when((mapView) => {
         // Når kartet er initialisert kan vi hente data
         // Vi har lagd noen hjelpefunksjoner i utils/featureUtils
@@ -63,7 +63,7 @@ const MapComponent = () => {
         // En god idé er å sette zoom nivået med scale attributten, f. eks scale 5000
         var locateWidget = new Locate({
           view: mapView,
-          scale: 5000
+          scale: 5000,
         });
         mapView.ui.add(locateWidget, "top-left");
 
@@ -84,13 +84,11 @@ const MapComponent = () => {
         // Det er mulig å lagre resultatet ra widgeten i contexten med context.point.set()
         locateWidget.on("locate", function (locateEvent) {
           if (locateEvent.position.coords) {
-            context.point.set(
-              {
-                type: "point",
-                latitude: locateEvent.position.coords.latitude,
-                longitude: locateEvent.position.coords.longitude
-              }
-            )
+            context.point.set({
+              type: "point",
+              latitude: locateEvent.position.coords.latitude,
+              longitude: locateEvent.position.coords.longitude,
+            });
           }
         });
 
@@ -114,21 +112,23 @@ const MapComponent = () => {
     if (context.mapView.value) {
       const mapView = context.mapView.value;
 
-      const oldPoint = mapView.graphics.items.filter((item) => { return item.geometry.type === "point" })[0];
+      const oldPoint = mapView.graphics.items.filter((item) => {
+        return item.geometry.type === "point";
+      })[0];
       mapView.graphics.remove(oldPoint);
 
       const simpleMarkerSymbol = {
         type: "simple-marker",
-        color: '#1976d2',  // Blue
+        color: "#1976d2", // Blue
         outline: {
           color: [255, 255, 255], // White
-          width: 1
-        }
+          width: 1,
+        },
       };
 
       const pointGraphic = new Graphic({
         geometry: context.point.value,
-        symbol: simpleMarkerSymbol
+        symbol: simpleMarkerSymbol,
       });
 
       mapView.graphics.add(pointGraphic);
@@ -136,6 +136,6 @@ const MapComponent = () => {
   }, [context.point.value, context.mapView.value]);
 
   return <div className="mapDiv" ref={mapDiv}></div>;
-}
+};
 
 export default MapComponent;
