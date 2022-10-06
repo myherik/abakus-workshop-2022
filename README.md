@@ -1,9 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
+# Getting Started
 In the project directory, you can run:
 
 ### `npm start`
@@ -14,57 +9,22 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+## Oppgave 1
+### Sette opp Map, MapView og FeatureLayer
+Målet med denne oppgaven er å vise data i et kart. For å oppnå dette må vi sette opp et kart (Map) element, og en visning av dette kartet (MapView).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Vi har lagt inn de nødvendige komponentene i koden, men konstruktørene mangler en del. For å kunne vise noe må disse fylles ut korrekt. For å se hva som mangler må API-dokumentasjonen til Esri brukes. Denne dukumentasjonen ligger på https://developers.arcgis.com/javascript/latest/api-reference/ Det er og mer informasjon i koden som beskriver hva som må gjøres.
 
-### `npm run build`
+I tillegg til kartet og visningen må det legges til et data lag. Vi har noen hjelpefunksjoner som hjelper med å hente data, og opprette dette laget, men det må implementeres og legges til i kartet.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Oppgave 2
+### Legge til widgets
+Esri har mange widgets som er enkle å legge til i kartet, og i denne delen skal vi legge til en lokasjons widget. Hvordan dette gjøres er godt dokumentert i API dokumentasjonen. En god idé er å sette zoom nivået med scale attributten, f. eks scale 5000.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Vi har og lagd en egen widged som kan legges til. Dette er en widget som finner en rute mellom minst to punkt i kartet, og forsøker å få denne ruten til å matche et mål om antall skritt. Widgeten ligger i components/RouteWidget, men den er ikke helt ferdig enda. For å legge til denne må det gjøres noen endringer i Map.js, App.js, og det må rettes noen feil i RouteWidget.js fila.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Oppgave 3
+### Utvide widget
+I siste oppgave ønsker vi å utvide widgeten slik at brukeren kan velge selv hvor ruten skal starte. For å oppnå dette kan det implementeres med lokasjonswidgeten, eller med klikk i kartet. Implementasjonen er ganske lik for begge alternativene, man lager en lytter på et event, og setter et koordinat inn i contexten.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Det burde og legges til en grafikk i kartet som viser hvor startsstedet er, som tilsvarer brukerens klikk. Esri har et API for grafikk, og man kan bruke SimpleMarkerSymbol, eller CIMSymbol for grafikken. SimpleMarker er enklest å ta i bruk, mens CIM gir flere muligheter for styling.
