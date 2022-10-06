@@ -28,3 +28,8 @@ Vi har og lagd en egen widged som kan legges til. Dette er en widget som finner 
 I siste oppgave ønsker vi å utvide widgeten slik at brukeren kan velge selv hvor ruten skal starte. For å oppnå dette kan det implementeres med lokasjonswidgeten, eller med klikk i kartet. Implementasjonen er ganske lik for begge alternativene, man lager en lytter på et event, og setter et koordinat inn i contexten.
 
 Det burde og legges til en grafikk i kartet som viser hvor startsstedet er, som tilsvarer brukerens klikk. Esri har et API for grafikk, og man kan bruke SimpleMarkerSymbol, eller CIMSymbol for grafikken. SimpleMarker er enklest å ta i bruk, mens CIM gir flere muligheter for styling.
+
+## Videre arbeid
+Det er fremdeles en del som kan gjøres med denne applikasjonen. Slik som det er nå hentes alle punktene basert på hardkodet coordinater, Et mulig sted å begynne med forbedringer er å ta koordinatene basert på kartet. Det kan og jobbes mer med styling, eller man kan prøve å legge til flere nyttige Esri widgets.
+
+Hvis ikke så oppfordrer vi til å prøve ut Esri APIet selv, og lage noe helt eget. Det er mulig å ta utgangspunkt i steg 1 for å komme raskt i gang.
