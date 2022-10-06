@@ -1,4 +1,6 @@
-# Getting Started
+## Getting Started
+This project was bootstrapped with Create React App.
+
 ##### `git clone https://github.com/hanss-geodata/abakus-workshop-2022.git`
 ##### `npm install`
 ##### `npm start`
