@@ -11,6 +11,20 @@ const RouteWidget = () => {
   const [length, setLength] = useState(0); // Lengde på kalkulert rute
   const [radius, setRadius] = useState(1.5); // Radius rundt brukerens posisjon
   const isMobile = navigator.userAgent.match(/Mobile|Windows Phone|Lumia|Android|webOS|iPhone|iPod|Blackberry|PlayBook|BB10|Opera Mini|\bCrMo\/|Opera Mobi/i)
+  const radiusToLengthOptions = [
+    {
+      radius: 0.5,
+      meter: 3000
+    },
+    {
+      radius: 0.7,
+      meter: 5000
+    },
+    {
+      radius: 1.5,
+      meter: 10000
+    }
+  ];
 
   // Kalkuler ca antall skritt basert på rutens lengde
   const getSteps = (length) => {
