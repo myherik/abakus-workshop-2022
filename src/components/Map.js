@@ -28,8 +28,16 @@ const MapComponent = () => {
       // Hent dataen
       const featureLayer = new FeatureLayer({
         url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer/0",
+        popupEnabled: true,
+        popupTemplate: {
+          title: "{name}",
+          content: [{
+            type: "text",
+            text: `<p>Type: {tourism}</p>
+                  <p>{description}</p>`
+          }]
+        }
       });
-
       // Legg til dataen i kartet
       map.add(featureLayer);
 
