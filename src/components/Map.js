@@ -66,27 +66,27 @@ const MapComponent = () => {
         });
         mapView.ui.add(locateWidget, "top-left");
 
-        // Vi har og lagd en egen widged som kan legges til
+        // Vi har også lagd en egen widget som kan legges til i kartet
         // Denne ligger i components/RouteWidget, men den er ikke helt ferdig enda
         // Den må først legges til i App.js fila, men det er noen feil med den
 
-        // Det første vi må gjøre er å sørge for at Widgeten har tilgang til MapViewet
+        // Det første vi må gjøre er å sørge for at widgeten har tilgang til MapViewet
         // Dette kan gjøres ved å legge den til i contexten vår
         // Resten av feilene må løses i RouteWidget fila
         context.mapView.set(mapView);
 
         // Til slutt ønsker vi at brukeren skal kunne velge startssted for widget selv
-        // Dette kan gjøres ved å bruke lokasjonen fra locate widgeten, eller ved å f. eks klikke i kartet
+        // Dette kan gjøres ved å bruke lokasjonen fra locate widgeten, eller ved å f. eks. klikke i kartet
         // For å kunne bruke locate widgeten trenger vi en lytter på widgeten.
         // Mer om dette finnes på siden:
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html#on
-        // Det er mulig å lagre resultatet ra widgeten i contexten med context.point.set()
+        // Det er mulig å lagre resultatet fra widgeten i contexten med context.point.set()
 
         // For å kunne klikke i kartet trenger vi en lytter på MapViewet
         // Dette gjøres ganske likt som for locate widgeten, og mer info er på API siden for MapView
 
-        // For klikk i kart er det og ønsket å legge til et punkt som viser hvor brukeren har klikket
-        // For å gjøre dette trenger vi å ta i bruk noe for symbologi, f. eks SimpleMarkerSymbol
+        // For klikk i kart er det også et ønsket om å legge til et punkt som viser hvor brukeren har klikket
+        // For å gjøre dette trenger vi å ta i bruk noe for symbologi, f. eks. SimpleMarkerSymbol
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-SimpleMarkerSymbol.html
         // Og vi trenger en grafikk som legges til MapView
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html
