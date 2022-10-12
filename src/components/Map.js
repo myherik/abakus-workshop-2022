@@ -26,10 +26,16 @@ const MapComponent = () => {
         basemap: "gray-vector",
       });
 
+      // Hent dataen
       const featureLayer = new FeatureLayer({
         url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer/0",
       });
+
+      // Legg til dataen i kartet
       map.add(featureLayer);
+
+      // Legg til dataen i context
+      context.featureLayer.set(featureLayer);
 
       // For å kunne vise kartet må dette legges til i et MapView
       // Dokumentasjonen for MapView finnes her:
