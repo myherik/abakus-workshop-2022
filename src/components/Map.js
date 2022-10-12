@@ -53,7 +53,7 @@ const MapComponent = () => {
       map.add(trailheadsLayer);
 
       // TODO: Legg til dataen i context
-      //context.trailheadsLayer = trailheadsLayer;
+      context.FeatureLayer.set(trailheadsLayer);
 
       // For å kunne vise kartet må dette legges til i et MapView
       // Dokumentasjonen for MapView finnes her:
