@@ -46,10 +46,10 @@ const MapComponent = () => {
         ).then((result) => {
           // Etter at vi har hentet data må vi legge dette til i kartet
           // Det er en annen funksjon i featureUtils
-          // denne gjør OSM data om til et kartlag som kan legges til i kartet
+          // Denne gjør OSM data om til et kartlag som kan legges til i kartet
           const featureLayer = createOSMFeatureLayer(result, context);
-          
-          // etter å ha lagd kartlaget må dette legges til i kartet
+
+          // Etter å ha lagd kartlaget må dette legges til i kartet
           // Dette er beskrevet i API dokumentsjonen for Map
           map.add(featureLayer);
         });
@@ -60,7 +60,7 @@ const MapComponent = () => {
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html
         // En god idé er å sette zoom nivået med scale attributten, f. eks scale 5000
 
-        // Vi har og lagd en egen widged som kan legges til
+        // Vi har også lagd en egen widget som kan legges til i kartet
         // Denne ligger i components/RouteWidget, men den er ikke helt ferdig enda
         // Den må først legges til i App.js fila, men det er noen feil med den
 
@@ -69,7 +69,7 @@ const MapComponent = () => {
         // Resten av feilene må løses i RouteWidget fila
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div className="mapDiv" ref={mapDiv}></div>;
