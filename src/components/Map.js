@@ -5,9 +5,9 @@ import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
 import Locate from "@arcgis/core/widgets/Locate";
 import Graphic from "@arcgis/core/Graphic";
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 
 import { AppContext } from "../state/context";
-import { createOSMFeatureLayer, queryOSMData } from "../utils/featureUtils";
 import "../App.css";
 
 const MapComponent = () => {
@@ -27,6 +27,17 @@ const MapComponent = () => {
         basemap: "topo-vector",
       });
 
+      // Hent dataen
+      const featureLayer = new FeatureLayer({
+        url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer/0",
+      });
+
+      // Legg til dataen i kartet
+      map.add(featureLayer);
+
+      // Legg til dataen i context
+      context.featureLayer.set(featureLayer);
+
       // For å kunne vise kartet må dette legges til i et MapView
       // Dokumentasjonen for MapView finnes her:
       // https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html
@@ -40,21 +51,6 @@ const MapComponent = () => {
           xmax: 10.560264587402344,
         },
       }).when((mapView) => {
-        // Når kartet er initialisert kan vi hente data
-        // Vi har lagd noen hjelpefunksjoner i utils/featureUtils
-        // Den første henter data fra Open Streetmap, men trenger en bbox
-        queryOSMData(
-          "63.40182257265643,10.227928161621094,63.453731595863324,10.560264587402344"
-        ).then((result) => {
-          // Etter at vi har hentet data må vi legge dette til i kartet
-          // Det er en annen funksjon i featureUtils
-          // denne gjør OSM data om til et kartlag som kan legges til i kartet
-          const featureLayer = createOSMFeatureLayer(result, context);
-
-          // etter å ha lagd kartlaget må dette legges til i kartet
-          // Dette er beskrevet i API dokumentsjonen for Map
-          map.add(featureLayer);
-        });
         // Esri har mange widgets som er enkle å legge til i kartet
         // En av disse er locate widgeten, som flytter kartet til din possisjon
         // Widgeten må først opprettes, så plasseres på kartet
