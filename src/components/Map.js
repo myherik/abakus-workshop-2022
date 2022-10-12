@@ -5,6 +5,7 @@ import esriConfig from "@arcgis/core/config.js";
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
+import PopupTemplate from "@arcgis/core/PopupTemplate";
 
 import "../App.css";
 
@@ -29,6 +30,17 @@ const MapComponent = () => {
       // På følgende tjeneste finner dere punkter som viser en rekke turistatraksjoner i Europa:
       // Url: https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer/0
       // Se dokumentasjonssiden for et eksempel: https://developers.arcgis.com/javascript/latest/add-a-feature-layer/
+
+      // Om man ønsker å ha en popup når man trykker på punktene i FeatureLayeret trenger man også å legge
+      // inn en popup template i featurelayeret. Denne har vi ferdig definert her.
+      const popUpTemplate = new PopupTemplate({
+        title: "{name}",
+        content: [{
+          type: "text",
+          text: `<p>Type: {tourism}</p>
+                  <p>{description}</p>`
+        }]
+      });
 
       // TODO: Legge hente data
       // TODO: Legge til dataen i kartet
