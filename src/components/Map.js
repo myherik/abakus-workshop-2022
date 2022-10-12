@@ -24,7 +24,7 @@ const MapComponent = () => {
       // En liste med valg finner vi i API dokumentasjonen:
       // https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap
       const map = new Map({
-        basemap: "dark-gray-vector",
+        basemap: "arcgis-dark-gray",
       });
 
       // Vi ønsker så å hente data som vi kan legge til i kartet.
@@ -53,7 +53,6 @@ const MapComponent = () => {
       map.add(trailheadsLayer);
 
       // TODO: Legg til dataen i context
-      context.FeatureLayer.set(trailheadsLayer);
 
       // For å kunne vise kartet må dette legges til i et MapView
       // Dokumentasjonen for MapView finnes her:
