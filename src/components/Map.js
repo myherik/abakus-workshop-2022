@@ -1,18 +1,17 @@
 import React, { useRef, useContext, useEffect } from "react";
 import { AppContext } from "../state/context";
 
-import esriConfig from '@arcgis/core/config.js';
+import esriConfig from "@arcgis/core/config.js";
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
 
 import "../App.css";
-import { createOSMFeatureLayer, queryOSMData } from "../utils/featureUtils";
 
 const MapComponent = () => {
   // Required: Set this property to insure assets resolve correctly.
-  esriConfig.assetsPath = './assets';
+  esriConfig.assetsPath = "./assets";
   const mapDiv = useRef(null);
-  const context = useContext(AppContext)
+  const context = useContext(AppContext);
 
   // Opprett kartet
   useEffect(() => {
@@ -22,8 +21,16 @@ const MapComponent = () => {
       // En liste med valg finner vi i API dokumentasjonen:
       // https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap
       const map = new Map({
-        basemap: ''
+        basemap: "",
       });
+
+      // Vi ønsker så å hente data som vi kan legge til i kartet.
+      // På følgende tjeneste finner dere punkter som viser en rekke turistatraksjoner i Europa:
+      // Url: https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer/0
+      // Se dokumentasjonssiden for et eksempel: https://developers.arcgis.com/javascript/latest/add-a-feature-layer/
+
+      // TODO: Legge hente data
+      // TODO: Legge til dataen i kartet
 
       // For å kunne vise kartet må dette legges til i et MapView
       // Dokumentasjonen for MapView finnes her:
@@ -39,23 +46,13 @@ const MapComponent = () => {
         // container
         // extent(valgfritt, men lurt å ha med)
       }).when(() => {
-        // Når kartet er initialisert kan vi hente data
-        // Vi har lagd noen hjelpefunksjoner i utils/featureUtils
-        // Den første henter data fra Open Streetmap, men trenger en bbox
-        queryOSMData("").then((result) => {
-          // Etter at vi har hentet data må vi legge dette til i kartet
-          // Det er en annen funksjon i featureUtils
-          // denne gjør OSM data om til et kartlag som kan legges til i kartet
-
-          // etter å ha lagd kartlaget må dette legges til i kartet
-          // Dette er beskrevet i API dokumentasjonen for Map
-        });
+        // Når kartet er initialisert kan vi manipulre dataen her
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div className="mapDiv" ref={mapDiv}></div>;
-}
+};
 
 export default MapComponent;
