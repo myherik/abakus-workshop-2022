@@ -8,6 +8,7 @@ import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import PopupTemplate from "@arcgis/core/PopupTemplate";
 
 import "../App.css";
+import { useStepContext } from "@mui/material";
 
 const MapComponent = () => {
   // Required: Set this property to insure assets resolve correctly.
@@ -23,7 +24,7 @@ const MapComponent = () => {
       // En liste med valg finner vi i API dokumentasjonen:
       // https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap
       const map = new Map({
-        basemap: "",
+        basemap: "dark-gray-vector",
       });
 
       // Vi ønsker så å hente data som vi kan legge til i kartet.
@@ -43,8 +44,16 @@ const MapComponent = () => {
       });
 
       // TODO: Legge hente data
+      const trailheadsLayer = new FeatureLayer({
+        url: "https://services-eu1.arcgis.com/zci5bUiJ8olAal7N/arcgis/rest/services/OSM_Tourism_EU/FeatureServer/0",
+        popupTemplate: popUpTemplate
+      });
+
       // TODO: Legge til dataen i kartet
+      map.add(trailheadsLayer);
+
       // TODO: Legg til dataen i context
+      //context.trailheadsLayer = trailheadsLayer;
 
       // For å kunne vise kartet må dette legges til i et MapView
       // Dokumentasjonen for MapView finnes her:
@@ -54,7 +63,17 @@ const MapComponent = () => {
       // xmin: 10.227928161621094,
       // ymax: 63.453731595863324,
       // xmax: 10.560264587402344
+      const myExtent = ({
+        ymin: 63.40182257265643,
+        xmin: 10.227928161621094,
+        ymax: 63.453731595863324,
+        xmax: 10.560264587402344
+      })
+
       new MapView({
+        map: map,
+        container:"myMapDiv",
+        extent: myExtent
         // MapView trenger minimum feltene:
         // map
         // container
@@ -66,7 +85,7 @@ const MapComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div className="mapDiv" ref={mapDiv}></div>;
+  return <div className="mapDiv" ref={mapDiv} id="myMapDiv"></div>;
 };
 
 export default MapComponent;
