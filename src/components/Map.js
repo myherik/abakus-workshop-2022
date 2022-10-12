@@ -4,6 +4,7 @@ import { AppContext } from "../state/context";
 import esriConfig from "@arcgis/core/config.js";
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 
 import "../App.css";
 
@@ -31,6 +32,7 @@ const MapComponent = () => {
 
       // TODO: Legge hente data
       // TODO: Legge til dataen i kartet
+      // TODO: Legg til dataen i context
 
       // For å kunne vise kartet må dette legges til i et MapView
       // Dokumentasjonen for MapView finnes her:
